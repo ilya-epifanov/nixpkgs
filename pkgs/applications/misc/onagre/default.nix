@@ -10,6 +10,8 @@
 , xorg
 , libxkbcommon
 , pop-launcher
+, vulkan-loader
+, libglvnd
 }:
 
 rustPlatform.buildRustPackage rec {
