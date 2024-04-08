@@ -19,11 +19,11 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "onagre-launcher";
     repo = pname;
-    rev = version;
-    hash = "sha256-FqmOcmq0yNxTXZRNPA5MpsTAm4cxXpvU99yPPhihayI=";
+    rev = "a02e725";
+    hash = "sha256-CbDdRv1HAYrntS5gwzsHNpbx+6xRHeIz9gtAs96thqU=";
   };
 
-  cargoSha256 = "sha256-xC5nf7DJCMBR2gUoB5NWZJGuZ8brs8WklCzg/osCsho=";
+  cargoSha256 = "sha256-f65KN9kMeYu0vgUxGT0Qc57Lwpvfw/Ga+4WOwjVUov4=";
 
   nativeBuildInputs = [ makeWrapper cmake pkgconf ];
   buildInputs = [ freetype expat
