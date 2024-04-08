@@ -26,7 +26,12 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-xC5nf7DJCMBR2gUoB5NWZJGuZ8brs8WklCzg/osCsho=";
 
   nativeBuildInputs = [ makeWrapper cmake pkgconf ];
-  buildInputs = [ freetype expat wayland libxkbcommon xorg.libX11 xorg.libXcursor xorg.libXrandr xorg.libXi ];
+  buildInputs = [ freetype expat
+    libxkbcommon
+    wayland
+    xorg.libX11 xorg.libXcursor xorg.libXrandr xorg.libXi
+    vulkan-loader libglvnd
+  ];
 
   postFixup = let
     rpath = lib.makeLibraryPath buildInputs;
