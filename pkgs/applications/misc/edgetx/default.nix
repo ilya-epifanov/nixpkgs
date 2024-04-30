@@ -1,11 +1,13 @@
 { lib, mkDerivation, fetchFromGitHub
 , cmake, gcc-arm-embedded, python3Packages
 , qtbase, qtmultimedia, qttools, SDL, gtest
-, dfu-util
+, dfu-util, tree
 }:
 
 mkDerivation rec {
   pname = "edgetx";
+  # version = "2.9.4";
+  # version = "2.8.5";
   version = "2.7.2";
 
   src = fetchFromGitHub {
@@ -13,10 +15,12 @@ mkDerivation rec {
     repo = pname;
     rev = "v${version}";
     fetchSubmodules = true;
-    sha256 = "sha256-bKMAyONy1Udd+2nDVEMrtIsnfqrNuBVMWU7nCqvZ+3E=";
+    # sha256 = "sha256-B+L/v2Z6Qusy/dnL5cfbrJA7UdMjILZquVDoLlr6eHE="; # 2.9.4
+    # sha256 = "sha256-KHRlZhse9ptUibh0+DjmQS9BNlS90llMzDeDLK6QzUE="; # 2.8.5
+    sha256 = "sha256-bKMAyONy1Udd+2nDVEMrtIsnfqrNuBVMWU7nCqvZ+3E="; # 2.7.2
   };
 
-  nativeBuildInputs = [ cmake gcc-arm-embedded python3Packages.pillow qttools ];
+  nativeBuildInputs = [ cmake gcc-arm-embedded python3Packages.pillow qttools tree ];
 
   buildInputs = [ qtbase qtmultimedia SDL ];
 
@@ -31,6 +35,24 @@ mkDerivation rec {
     # file RPATH_CHANGE could not write new RPATH
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
   ];
+
+  configurePhase = ''
+    cmake --build . --target native-configure
+  '';
+
+  buildPhase = ''
+    cmake --build native --target install
+  '';
+
+  # buildPhase = ''
+  #   tree .
+  #   make native
+  #   tree .
+  # '';
+
+  # installPhase = ''
+  #   tree ./output
+  # '';
 
   meta = with lib; {
     description = "EdgeTX Companion transmitter support software";
