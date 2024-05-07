@@ -39202,6 +39202,8 @@ with pkgs;
 
   betaflight-configurator = callPackage ../applications/science/robotics/betaflight-configurator { };
 
+  blheli-configurator = callPackage ../applications/science/robotics/blheli-configurator { };
+
   emuflight-configurator = callPackage ../applications/science/robotics/emuflight-configurator { };
 
   inav-configurator = callPackage ../applications/science/robotics/inav-configurator {
