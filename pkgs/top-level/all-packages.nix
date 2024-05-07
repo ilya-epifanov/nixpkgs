@@ -39206,6 +39206,8 @@ with pkgs;
 
   emuflight-configurator = callPackage ../applications/science/robotics/emuflight-configurator { };
 
+  inav-blackbox-explorer = callPackage ../applications/science/robotics/inav-blackbox-explorer { };
+
   inav-configurator = callPackage ../applications/science/robotics/inav-configurator {
     version = "7.1.1";
     sha256 = "1fkqxrnmnz2xmxcpp9zs3lv1r1vgsgdhhf54mq450alg8ym3z94l";
