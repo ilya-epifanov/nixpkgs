@@ -39219,6 +39219,8 @@ with pkgs;
 
   mission-planner = callPackage ../applications/science/robotics/mission-planner { };
 
+  walksnail-osd-tool = callPackage ../applications/science/robotics/walksnail-osd-tool { };
+
   ### MISC
 
   acpilight = callPackage ../misc/acpilight { };
