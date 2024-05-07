@@ -39204,7 +39204,14 @@ with pkgs;
 
   emuflight-configurator = callPackage ../applications/science/robotics/emuflight-configurator { };
 
-  inav-configurator = callPackage ../applications/science/robotics/inav-configurator { };
+  inav-configurator = callPackage ../applications/science/robotics/inav-configurator {
+    version = "7.1.1";
+    sha256 = "1fkqxrnmnz2xmxcpp9zs3lv1r1vgsgdhhf54mq450alg8ym3z94l";
+  };
+  inav-configurator_6 = callPackage ../applications/science/robotics/inav-configurator {
+    version = "6.1.0";
+    sha256 = "0asim3xakn089pamgzrdsrvxjl79cnpmikgc9wz6xwyc8dz9r20w";
+  };
 
   mission-planner = callPackage ../applications/science/robotics/mission-planner { };
 
