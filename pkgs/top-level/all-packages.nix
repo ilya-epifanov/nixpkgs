@@ -19280,6 +19280,8 @@ with pkgs;
     sdk = true;
   };
 
+  nwjs-ffmpeg-prebuilt = callPackage ../development/tools/nwjs-ffmpeg-prebuilt { };
+
   nrf5-sdk = callPackage ../development/libraries/nrf5-sdk { };
 
   nrfutil = callPackage ../development/tools/misc/nrfutil { };
