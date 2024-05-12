@@ -39233,6 +39233,8 @@ with pkgs;
 
   emuflight-configurator = callPackage ../applications/science/robotics/emuflight-configurator { };
 
+  frsky-osd = callPackage ../applications/science/robotics/frsky-osd { };
+
   inav-blackbox-explorer = callPackage ../applications/science/robotics/inav-blackbox-explorer { };
 
   inav-configurator = callPackage ../applications/science/robotics/inav-configurator {
