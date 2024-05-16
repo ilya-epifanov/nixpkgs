@@ -7,6 +7,8 @@
 , wrapGAppsHook3
 , gsettings-desktop-schemas
 , gtk3
+, glib
+, curl
 }:
 
 stdenv.mkDerivation rec {
@@ -23,26 +25,31 @@ stdenv.mkDerivation rec {
   #   find -name "lib*.so.*" -delete
   # '';
 
-  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook3 unzip ];
-
-  buildInputs = [ gsettings-desktop-schemas gtk3 ];
+  nativeBuildInputs = [ copyDesktopItems unzip ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin \
-            $out/opt/${pname}
+             $out/opt/${pname}
 
     cp -r * $out/opt/${pname}/
 
     chmod +x $out/opt/${pname}/BLHeliSuite32xl
+    ln -s $out/opt/${pname}/BLHeliSuite32xl $out/bin/BLHeliSuite32xl
 
     runHook postInstall
   '';
 
+  postFixup = let
+    rpath = lib.makeLibraryPath [ gtk3 glib curl ];
+  in ''
+    patchelf $out/opt/${pname}/BLHeliSuite32xl --add-rpath ${rpath}
+  '';
+
   desktopItems = makeDesktopItem {
-    name = pname;
-    exec = pname;
+    name = "BLHeliSuite32";
+    exec = "BLHeliSuite32xl";
     comment = "BLHeliSuite32";
     desktopName = "BLHeliSuite32";
     genericName = "BLHeliSuite32";
