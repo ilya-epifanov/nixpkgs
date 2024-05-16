@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchurl
+, unzip
 , makeDesktopItem
 , copyDesktopItems
 , wrapGAppsHook3
@@ -22,7 +23,7 @@ stdenv.mkDerivation rec {
   #   find -name "lib*.so.*" -delete
   # '';
 
-  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook3 ];
+  nativeBuildInputs = [ copyDesktopItems wrapGAppsHook3 unzip ];
 
   buildInputs = [ gsettings-desktop-schemas gtk3 ];
 
