@@ -12947,6 +12947,9 @@ with pkgs;
   bitwig-studio5-unwrapped =  callPackage ../applications/audio/bitwig-studio/bitwig-studio5.nix {
     libjpeg = libjpeg8;
   };
+  bitwig-studio5_1 =  callPackage ../applications/audio/bitwig-studio/bitwig-studio5_1.nix {
+    libjpeg = libjpeg8;
+  };
 
   bitwig-studio5 = callPackage ../applications/audio/bitwig-studio/bitwig-wrapper.nix {
     bitwig-studio-unwrapped = bitwig-studio5-unwrapped;
