@@ -28253,6 +28253,9 @@ with pkgs;
   bitwig-studio5 =  callPackage ../applications/audio/bitwig-studio/bitwig-studio5.nix {
     libjpeg = libjpeg8;
   };
+  bitwig-studio5_1 =  callPackage ../applications/audio/bitwig-studio/bitwig-studio5_1.nix {
+    libjpeg = libjpeg8;
+  };
 
   bitwig-studio = bitwig-studio5;
 
