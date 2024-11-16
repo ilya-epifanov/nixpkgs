@@ -16,6 +16,8 @@
 
   obs-3d-effect = callPackage ./obs-3d-effect.nix { };
 
+  obs-aitum-multistream = qt6Packages.callPackage ./obs-aitum-multistream.nix { };
+
   obs-backgroundremoval = callPackage ./obs-backgroundremoval { };
 
   obs-color-monitor = qt6Packages.callPackage ./obs-color-monitor.nix { };
