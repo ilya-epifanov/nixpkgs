@@ -17887,6 +17887,10 @@ with pkgs;
     hash = "sha256-ZvZxQICa5fnJBTx0aW/hqQCuhQW9MkcVa2sOjPYaPXM=";
     packed = true;
   };
+  inav-configurator6 = callPackage ../by-name/in/inav-configurator/package.nix {
+    version = "6.1.0";
+    hash = "sha256-HIicfkPM824+T+zNWK9l6VDZd9Yt/1fVTQjYqfqoUSs=";
+  };
 
   ### MISC
 
