@@ -5,6 +5,7 @@
   ensureNewerSourcesForZipFilesHook,
   makeDesktopItem,
   imagemagick,
+  jack2,
   cmake,
   pkg-config,
   alsa-lib,
@@ -34,13 +35,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "plugdata";
-  version = "0.8.0";
+  version = "0.9.1";
 
   src = fetchFromGitHub {
     owner = "plugdata-team";
     repo = "plugdata";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-qG9fH5C42jiHj03p/KM28jmDIkJkrQMe7fxg92Lg7B4=";
+    hash = "sha256-dcggq455lZiwl1lps11fuKX6sx0A8UtFwFoiBJWtwFQ=";
     fetchSubmodules = true;
   };
 
@@ -57,9 +58,11 @@ stdenv.mkDerivation (finalAttrs: {
     curl
     freetype
     webkitgtk_4_0
+    jack2
     xorg.libX11
     xorg.libXcursor
     xorg.libXext
+    xorg.libXi
     xorg.libXinerama
     xorg.libXrender
     xorg.libXrandr
@@ -69,6 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     lib.makeLibraryPath ([
       xorg.libX11
       xorg.libXrandr
+      xorg.libXi
       xorg.libXinerama
       xorg.libXext
       xorg.libXcursor
@@ -77,9 +81,15 @@ stdenv.mkDerivation (finalAttrs: {
   }";
   dontPatchELF = true; # needed or nix will try to optimize the binary by removing "useless" rpath
 
+  cmakeFlags = [
+    "-DENABLE_TESTING:BOOL=OFF"
+  ];
+
   postPatch = ''
     # Don't build LV2 plugin (it hangs), and don't automatically install
     sed -i 's/ LV2 / /g' CMakeLists.txt
+    sed -i 's/ VST3 / /g' CMakeLists.txt
+    grep -v -i '/LV2/' CMakeLists.txt
   '';
 
   installPhase = ''
@@ -89,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/{bin,lib/{clap,vst3}}
     cp    Plugins/Standalone/plugdata      $out/bin
     cp -r Plugins/CLAP/plugdata{,-fx}.clap $out/lib/clap
-    cp -r Plugins/VST3/plugdata{,-fx}.vst3 $out/lib/vst3
+    # cp -r Plugins/VST3/plugdata{,-fx}.vst3 $out/lib/vst3
 
     icon_name="plugdata_logo.png"
     icon_path="Resources/Icons/$icon_name"
