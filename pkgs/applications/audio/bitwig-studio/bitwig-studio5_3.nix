@@ -1,5 +1,6 @@
 { stdenv
 , fetchurl
+, autoPatchelfHook
 , alsa-lib
 , atk
 , cairo
@@ -7,6 +8,7 @@
 , ffmpeg
 , freetype
 , gdk-pixbuf
+, giflib
 , glib
 , gtk3
 , harfbuzz
@@ -37,7 +39,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ccDgNsKskEsaL3G5ISZUMckvFosMALFzEzOM9D4/Xgo=";
   };
 
-  nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook3 ];
+  nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook3 autoPatchelfHook ];
 
   unpackCmd = ''
     mkdir -p root
@@ -53,6 +55,7 @@ stdenv.mkDerivation rec {
     cairo
     freetype
     gdk-pixbuf
+    giflib
     glib
     gtk3
     harfbuzz
@@ -104,21 +107,31 @@ stdenv.mkDerivation rec {
       -not -name '*.so.*' \
       -not -name '*.so' \
       -not -name '*.jar' \
-      -not -name 'jspawnhelper' \
       -not -path '*/resources/*' | \
     while IFS= read -r f ; do
       patchelf --set-interpreter "${stdenv.cc.bintools.dynamicLinker}" $f
+    done
+
+    find $out -type f -executable -name 'Bitwig*PluginHost*' | \
+    while IFS= read -r f ; do
+      wrapProgram $f \
+        "''${gappsWrapperArgs[@]}" \
+        --suffix LD_LIBRARY_PATH : "${lib.strings.makeLibraryPath buildInputs}"
+    done
+
+    find $out -type f -executable \
+      -not -name 'Bitwig*PluginHost*' \
+      -not -name '*.so.*' \
+      -not -name '*.so' \
+      -not -name '*.jar' \
+      -not -name 'jspawnhelper' \
+      -not -path '*/resources/*' | \
+    while IFS= read -r f ; do
       # make xdg-open overrideable at runtime
       wrapProgram $f \
         "''${gappsWrapperArgs[@]}" \
         --prefix PATH : "${lib.makeBinPath [ ffmpeg ]}" \
-        --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}" \
-        --suffix LD_LIBRARY_PATH : "${lib.strings.makeLibraryPath buildInputs}"
-    done
-
-    find $out -type f -executable -name 'jspawnhelper' | \
-    while IFS= read -r f ; do
-      patchelf --set-interpreter "${stdenv.cc.bintools.dynamicLinker}" $f
+        --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}"
     done
   '';
 
