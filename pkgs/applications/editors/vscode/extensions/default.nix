@@ -297,6 +297,18 @@ let
         };
       };
 
+      anthropic.claude-code = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          publisher = "anthropic";
+          name = "claude-code";
+          version = "1.0.67";
+          hash = "sha256-hS48yyFVAaNIOmFf9zARV+TDRv1QlfdMy9QJeWIcTsc=";
+        };
+        meta = {
+          license = lib.licenses.unfree; # unkonwn license
+        };
+      };
+
       antyos.openscad = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "openscad";
