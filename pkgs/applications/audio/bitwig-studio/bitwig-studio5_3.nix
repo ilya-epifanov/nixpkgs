@@ -32,11 +32,11 @@
 
 stdenv.mkDerivation rec {
   pname = "bitwig-studio";
-  version = "5.3.8";
+  version = "5.3.13";
 
   src = fetchurl {
     url = "https://www.bitwig.com/dl/Bitwig%20Studio/${version}/installer_linux/";
-    hash = "sha256-ccDgNsKskEsaL3G5ISZUMckvFosMALFzEzOM9D4/Xgo=";
+    hash = "sha256-tx+Dz9fTm4DIobwLa055ZOCMG+tU7vQl11NFnEKMAno=";
   };
 
   nativeBuildInputs = [ dpkg makeWrapper wrapGAppsHook3 autoPatchelfHook ];
