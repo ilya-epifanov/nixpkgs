@@ -1,0 +1,8 @@
+# Elgato 4K X (all USB speed modes)
+SUBSYSTEM=="usb", ATTR{idVendor}=="0fd9", ATTR{idProduct}=="009b", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0fd9", ATTR{idProduct}=="009c", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0fd9", ATTR{idProduct}=="009d", TAG+="uaccess"
+
+# Elgato 4K S (all USB speed modes)
+SUBSYSTEM=="usb", ATTR{idVendor}=="0fd9", ATTR{idProduct}=="00af", TAG+="uaccess"
+SUBSYSTEM=="usb", ATTR{idVendor}=="0fd9", ATTR{idProduct}=="00ae", TAG+="uaccess"
